@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,8 +18,10 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button mic;
+    Button mic,send;
     TextView out;
+    EditText pno;
+    String message,mobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
       mic=findViewById(R.id.mic_btn);
       out=findViewById(R.id.out);
+      pno=findViewById(R.id.pno);
+      send=findViewById(R.id.send);
+
+      message=out.getText().toString();
+      mobile=pno.getText().toString().trim();
 
       mic.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -39,6 +48,22 @@ public class MainActivity extends AppCompatActivity {
               }catch (Exception e){
                   Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
               }
+          }
+      });
+
+      send.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+              try {
+                  SmsManager smsManager=SmsManager.getDefault();
+                  smsManager.sendTextMessage(mobile,null,message,null,null);
+                  Toast.makeText(MainActivity.this, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+              }
+              catch (Exception e){
+                  Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+              }
+
           }
       });
 
