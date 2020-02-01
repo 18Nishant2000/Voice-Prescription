@@ -73,7 +73,11 @@ public class MainActivity extends AppCompatActivity {
         PdfDocument.PageInfo mPageInfo=new PdfDocument.PageInfo.Builder(300,600,1).create();
         PdfDocument.Page page=pd.startPage(mPageInfo);
         Paint mp=new Paint();
-        page.getCanvas().drawText(name.getText().toString(),10,25,mp);
+        page.getCanvas().drawText("Name: "+name.getText().toString(),10,25,mp);
+        page.getCanvas().drawText("Symptoms: "+symptoms.getText().toString(),10,55,mp);
+        page.getCanvas().drawText("Diagnosis: "+diagnosis.getText().toString(),10,85,mp);
+        page.getCanvas().drawText("Prescription: "+prescription.getText().toString(),10,115,mp);
+        page.getCanvas().drawText("Advice: "+advice.getText().toString(),10,145,mp);
 
         pd.finishPage(page);
         String myFilePath= Environment.getExternalStorageDirectory().getPath()+"/pdffile.pdf";
